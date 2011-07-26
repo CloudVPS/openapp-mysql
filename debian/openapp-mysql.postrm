@@ -33,7 +33,7 @@ case "$1" in
 		#rm /etc/openapp-backup/scripts.d/mysql-xtrabackup
 
 		echo "Removing openapp-tuning identity-file"
-		rm /etc/openapp-tuning/identity
+		[ -r /etc/openapp-tuning/identity ] && rm /etc/openapp-tuning/identity
     ;;
 
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
