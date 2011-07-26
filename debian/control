@@ -1,0 +1,15 @@
+Source: openapp-mysql
+Section: database
+Priority: extra
+Maintainer: Mark Schouten <mark@tuxis.nl>
+Build-Depends: debhelper
+Standards-Version: 3.9.1
+Homepage: http://www.openpanel.com/openapp/
+
+Package: openapp-mysql
+Architecture: any
+Pre-Depends: openapp-backup, openapp-tuning, lighttpd
+Depends: ${shlibs:Depends}, ${misc:Depends}, rsync, mysql-server, phpmyadmin, php5-cgi
+Provides: openapp-app
+Conflicts: openapp-app, openapp-app-installer
+Description: This will install your wordpress OpenApp Appliance!
