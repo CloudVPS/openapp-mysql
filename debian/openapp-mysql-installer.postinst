@@ -38,7 +38,7 @@ create_backup() {
 	VERSION=$1
 
 	[ -z $1 ] && BACKUP=/var/backups/var.www.phpmyadmin.tgz
-	[ -z ${BACKUP} ] || BACKUP=/var/backups/var.www.phpmyadmin-$1.tgz
+	[ -z ${BACKUP} ] && BACKUP=/var/backups/var.www.phpmyadmin-$1.tgz
 
 	echo "Creating backup of current ${INSTALLDIR} in ${BACKUP}"
 	tar zcf ${BACKUP} ${INSTALLDIR}
