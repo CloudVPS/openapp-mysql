@@ -1,0 +1,36 @@
+#!/bin/bash
+# Prio: 0.5
+
+. /usr/lib/openapp-backup/includes/index
+
+###
+# This script will set the siteurl to the primary ip of this box
+
+BACKUPDIR=$1
+ACTION=$2
+
+run_backup() {
+	[ -x /usr/bin/innobackupex ] && exit 0;
+
+	set -o pipefail
+
+	gpg --keyserver  hkp://keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A > /dev/null 2>&1 || fatal "Could not fetch gpg-key"
+	gpg -a --export CD2EFD2A | apt-key add - > /dev/null 2>&1 || fatal "Could not import gpg-key"
+
+	cat <<EOB > /etc/apt/sources.list.d/xtrabackup.list
+deb http://repo.percona.com/apt lucid main
+deb-src http://repo.percona.com/apt lucid main
+EOB
+
+	apt-get update > /dev/null 2>&1 || fatal "Could not run apt-get update"
+	apt-get install xtrabackup > /dev/null 2>&1 || fatal "Could not install xtrabackup"
+}
+
+case ${ACTION} in
+    backup)
+		run_backup
+    ;;
+    restore)
+        exit 0;
+    ;;
+esac
