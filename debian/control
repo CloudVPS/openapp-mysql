@@ -8,7 +8,7 @@ Homepage: http://www.openpanel.com/openapp/
 
 Package: openapp-mysql-installer
 Architecture: any
-Pre-Depends: lighttpd, mysql-server, php5-cgi, php5-mysql
+Pre-Depends: lighttpd, mysql-server, php5-cgi, php5-mysql, pwgen
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Provides: openapp-app-installer
 Conflicts: openapp-app-installer
