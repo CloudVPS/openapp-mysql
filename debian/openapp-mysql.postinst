@@ -35,13 +35,9 @@ case "$1" in
 			echo "mysql" > /etc/openapp-tuning/identity
 			[ -x /usr/sbin/openapp-tuning ] && openapp-tuning mysql start
 			if [ $? -eq 0 ]; then
-				echo "Restarting apache2 & Mysql to benefit from tuned config"
+				echo "Restarting Mysql to benefit from tuned config"
 				restart mysql
 			fi
-
-			echo "Configuring lighttpd"
-			lighty-enable-mod auth fastcgi
-			/etc/init.d/lighttpd restart
 		fi
 	;;
 	abort-upgrade|abort-remove|abort-deconfigure|triggered)

@@ -6,10 +6,18 @@ Build-Depends: debhelper
 Standards-Version: 3.9.1
 Homepage: http://www.openpanel.com/openapp/
 
+Package: openapp-mysql-installer
+Architecture: any
+Pre-Depends: lighttpd, mysql-server, php5-cgi, php5-mysql
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: openapp-app-installer
+Conflicts: openapp-app-installer
+Description: This will install your wordpress OpenApp Appliance!
+
 Package: openapp-mysql
 Architecture: any
-Pre-Depends: openapp-backup, openapp-tuning, lighttpd
-Depends: ${shlibs:Depends}, ${misc:Depends}, rsync, mysql-server, phpmyadmin, php5-cgi
+Pre-Depends: openapp-backup, openapp-tuning
+Depends: ${shlibs:Depends}, ${misc:Depends}, rsync, openapp-mysql-installer
 Provides: openapp-app
-Conflicts: openapp-app, openapp-app-installer
+Conflicts: openapp-app
 Description: This will install your wordpress OpenApp Appliance!
