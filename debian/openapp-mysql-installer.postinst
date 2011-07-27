@@ -28,7 +28,6 @@ fatal() {
 
 install_phpmyadmin() {
 	MIRROR=http://test.tuxis.net/test/
-	PASSWORD=`pwgen -s 10`
 
 	echo "Creating backup of current /var/www in /var/backups/var.www.phpmyadmin.tgz"
 	tar zcf /var/backups/var.www.phpmyadmin.tgz /var/www/
