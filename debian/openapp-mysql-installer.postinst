@@ -40,7 +40,7 @@ install_phpmyadmin() {
 	if [ $? -eq 0 ]; then
 		mkdir -p ${INSTALLDIR} || fatal "Unable to create directory ${INSTALLDIR}"
 		cd ${INSTALLDIR} || fatal "Unable to go into directory ${INSTALLDIR}"
-		tar --transform 's/^phpmyadmin-.*/./' -zxf ${TMPDIR}/phpmyadmin-$$.tar.gz || fatal "Unable to extract phpmyadmin package into ${INSTALLDIR}"
+		tar --transform 's/^phpmyadmin-.*/./i' -zxf ${TMPDIR}/phpmyadmin-$$.tar.gz || fatal "Unable to extract phpmyadmin package into ${INSTALLDIR}"
 	else
 		echo "Failed to download phpmyadmin from ${MIRROR}/phpmyadmin-newest.tar.gz!"
 		exit 1
