@@ -40,7 +40,7 @@ create_backup() {
 	[ -z $1 ] && BACKUP=/var/backups/var.www.phpmyadmin.tgz
 	[ -z ${BACKUP} ] || BACKUP=/var/backups/var.www.phpmyadmin-$1.tgz
 
-	echo "Creating backup of current /var/www in ${BACKUP}"
+	echo "Creating backup of current ${INSTALLDIR} in ${BACKUP}"
 	tar zcf ${BACKUP} ${INSTALLDIR}
 }
 
@@ -50,6 +50,17 @@ save_config() {
 
 restore_config() {
 	cp -r ${TMPDIR}/config/* ${INSTALLDIR}/config
+	chown -R www-data:www-data /${INSTALLDIR}/config
+}
+
+run_openapp_passwd() {
+	echo "Setting a password"
+	if [ -r /etc/openapp-mysql/lighttpd.passwd ]; then
+		PASSWORD=$(cat /etc/openapp-mysql/lighttpd.passwd | cut -f2 -d:)
+		echo ${PASSWORD} | openapp-mysql-passwd stdin
+	else
+		openapp-mysql-passwd
+	fi
 }
 
 install_phpmyadmin() {
@@ -70,15 +81,14 @@ install_phpmyadmin() {
 		exit 1
 	fi
 
-	echo "Fixing permissions on /var/www"
-	mkdir /var/www/config
-	chown -R www-data:www-data /var/www
+	echo "Fixing permissions on ${INSTALLDIR}"
+	mkdir ${INSTALLDIR}/config
+	chown -R www-data:www-data ${INSTALLDIR}
 	rm -f ${TMPDIR}/phpmyadmin-$$.tar.gz
 
 	echo "Enabling auth and fastcgi for Lighttpd"
 	lighttpd-enable-mod auth fastcgi
-	echo "Setting a password"
-	openapp-mysql-passwd
+	run_openapp_passwd
 }
 
 upgrade_phpmyadmin() {
@@ -87,8 +97,7 @@ upgrade_phpmyadmin() {
 	save_config
 	install_phpmyadmin $VERSION
 	restore_config
-	PASSWORD=$(cat /etc/openapp-mysql/lighttpd.passwd | cut -f2 -d:)
-	echo ${PASSWORD} | openapp-mysql-passwd stdin
+	run_openapp_passwd
 }
 
 case "$1" in
@@ -98,7 +107,7 @@ case "$1" in
 		install_phpmyadmin
 	else
 		echo "Upgrade detected. Running upgrade"
-		upgrade_phpmyadmin
+		upgrade_phpmyadmin $2
 	fi
     ;;
 
