@@ -44,15 +44,6 @@ create_backup() {
 	tar zcf ${BACKUP} ${INSTALLDIR}
 }
 
-save_config() {
-	cp -r ${INSTALLDIR}/config ${TMPDIR}
-}
-
-restore_config() {
-	cp -r ${TMPDIR}/config/* ${INSTALLDIR}/config
-	chown -R www-data:www-data /${INSTALLDIR}/config
-}
-
 run_openapp_passwd() {
 	echo "Setting a password"
 	if [ -r /etc/openapp-mysql/lighttpd.passwd ]; then
@@ -82,7 +73,6 @@ install_phpmyadmin() {
 	fi
 
 	echo "Fixing permissions on ${INSTALLDIR}"
-	mkdir ${INSTALLDIR}/config
 	chown -R www-data:www-data ${INSTALLDIR}
 	rm -f ${TMPDIR}/phpmyadmin-$$.tar.gz
 
@@ -94,10 +84,7 @@ install_phpmyadmin() {
 upgrade_phpmyadmin() {
 	VERSION=$1
 
-	save_config
 	install_phpmyadmin $VERSION
-	restore_config
-	run_openapp_passwd
 }
 
 case "$1" in
