@@ -17,7 +17,9 @@ Description: This will install your wordpress OpenApp Appliance!
 Package: openapp-mysql
 Architecture: any
 Pre-Depends: openapp-backup, openapp-tuning
-Depends: ${shlibs:Depends}, ${misc:Depends}, rsync, openapp-mysql-installer, openpanel-openapp-mod-mysql
+Depends: ${shlibs:Depends}, ${misc:Depends}, rsync, openapp-mysql-installer, openpanel-openapp-mod-mysql, xtrabackup
 Provides: openapp-app
 Conflicts: openapp-app
 Description: This will install your wordpress OpenApp Appliance!
+ Please note that you need xtrabackup too. See
+ http://openpanel.com/openapp-mysql for instructions

@@ -10,6 +10,11 @@ install:
 	mkdir -p $(PREFIX)/usr/share/man/man1
 	cp debian/openapp-mysql-passwd.1 $(PREFIX)/usr/share/man/man1
 
+#openapp-backupmodule
+	mkdir -p $(PREFIX2)/etc/openapp-backup/scripts.d/
+	cp openapp-backup/xtrabackup $(PREFIX2)/etc/openapp-backup/scripts.d/
+	chmod +x $(PREFIX2)/etc/openapp-backup/scripts.d/xtrabackup
+
 uninstall:
 # bin
 	rm -rf $(PREFIX)/usr/bin/openapp-mysql-passwd
