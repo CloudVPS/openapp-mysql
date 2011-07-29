@@ -31,6 +31,7 @@ case "$1" in
 			echo "Disabling ${SCRIPT}"
 		done
 		rm /etc/openapp-backup/scripts.d/xtrabackup
+		rm /etc/openapp-backup/scripts.d/openapp-mysql
 
 		echo "Removing openapp-tuning identity-file"
 		[ -r /etc/openapp-tuning/identity ] && rm /etc/openapp-tuning/identity

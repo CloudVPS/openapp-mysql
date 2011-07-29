@@ -12,8 +12,8 @@ install:
 
 #openapp-backupmodule
 	mkdir -p $(PREFIX2)/etc/openapp-backup/scripts.d/
-	cp openapp-backup/xtrabackup $(PREFIX2)/etc/openapp-backup/scripts.d/
-	chmod +x $(PREFIX2)/etc/openapp-backup/scripts.d/xtrabackup
+	cp openapp-backup/* $(PREFIX2)/etc/openapp-backup/scripts.d/
+	chmod +x $(PREFIX2)/etc/openapp-backup/scripts.d/*
 
 uninstall:
 # bin

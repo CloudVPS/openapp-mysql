@@ -30,12 +30,13 @@ run_restore() {
 
 	tar zvf /var/backups/var-lib-mysql.tar.gz /var/lib/mysql
 	rm -rf /var/lib/mysql
+	mkdir /var/lib/mysql
 
 	OUTPUT=$(innobackupex --copy-back ${BACKUPDIR}/data 2>&1)
 
 	echo "${OUTPUT}" | grep -q 'innobackupex: completed OK!' || warning "Innobackupex gave errors. See output: ${OUTPUT}"
 	rm /var/lib/mysql/{xtrabackup*,backup-my.cnf,stdout,stderr}
-	chmod -R mysql:mysql /var/lib/mysql
+	chown -R mysql:mysql /var/lib/mysql
 }
 
 case ${ACTION} in
@@ -43,6 +44,6 @@ case ${ACTION} in
 		run_backup
     ;;
     restore)
-        run_restore
+		run_restore
     ;;
 esac
