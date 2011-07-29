@@ -18,7 +18,7 @@ run_backup() {
 	MUSER=debian-sys-maint
 	MPASS=$(grep -m1 ^password /etc/mysql/debian.cnf | cut -f2 -d'=' | sed -e 's/ //g')
 
-	OUTPUT=$(innobackupex --user ${MUSER} --password ${MPASS} ${BACKUPDIR})
+	OUTPUT=$(innobackupex --user ${MUSER} --password ${MPASS} --no-timestamp ${BACKUPDIR} 2>&1)
 
 	echo "${OUTPUT}" | grep -q 'innobackupex: completed OK!' || warning "Innobackupex gave errors. See output: ${OUTPUT}"
 }
@@ -28,9 +28,13 @@ run_restore() {
 
 	set -o pipefail
 
-	OUTPUT=$(innobackupex --copy-back ${BACKUPDIR})
+	tar zvf /var/backups/var-lib-mysql.tar.gz /var/lib/mysql
+	rm -rf /var/lib/mysql
+
+	OUTPUT=$(innobackupex --copy-back ${BACKUPDIR} 2>&1)
 
 	echo "${OUTPUT}" | grep -q 'innobackupex: completed OK!' || warning "Innobackupex gave errors. See output: ${OUTPUT}"
+	rm /var/lib/mysql/{xtrabackup*,backup-my.cnf,stdout,stderr}
 	chmod -R mysql:mysql /var/lib/mysql
 }
 
