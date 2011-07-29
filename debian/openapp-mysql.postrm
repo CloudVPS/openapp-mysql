@@ -22,16 +22,12 @@ set -e
 case "$1" in
     purge|remove|abort-install)
 		echo "Removing symlinks for openapp-backup placed by the installscript"
-		SCRIPTS="home openpanel mysql"
+		SCRIPTS="home openpanel mysql xtrabackup openapp-mysql"
 		BASEMODULES=/usr/lib/openapp-backup/modules
 		MODULEDIR=/etc/openapp-backup/scripts.d
 		for SCRIPT in ${SCRIPTS}; do
-			# Only create syminks if they exist
-			[ -L "${MODULEDIR}/${SCRIPT}" ] && rm "${MODULEDIR}/${SCRIPT}"
-			echo "Disabling ${SCRIPT}"
+			openapp-backup-dismod ${SCRIPT}
 		done
-		rm /etc/openapp-backup/scripts.d/xtrabackup
-		rm /etc/openapp-backup/scripts.d/openapp-mysql
 
 		echo "Removing openapp-tuning identity-file"
 		[ -r /etc/openapp-tuning/identity ] && rm /etc/openapp-tuning/identity
