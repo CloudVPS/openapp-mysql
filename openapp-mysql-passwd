@@ -18,6 +18,7 @@ QUERY="${MYSQL} ${OPTS}"
 [ -z "$PASSWORD" ] && fatal "We don't have a password. Is pwgen installed?"
 
 ${QUERY} "GRANT ALL PRIVILEGES ON *.* TO openapp@'localhost' IDENTIFIED BY '${PASSWORD}';" || fatal "Unable to set Mysql password"
+${QUERY} "FLUSH PRIVILEGES;"
 
 mkdir -p ${CONFDIR}/
 
