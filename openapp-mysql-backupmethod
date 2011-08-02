@@ -5,7 +5,7 @@ fatal() {
     exit 1
 }
 
-[ -z $1 ] && fatal "You should enter: mysql, xtrabackup or stdin"
+[ -z $1 ] && fatal "You should enter: mysqldump, xtrabackup or stdin"
 [ "$1" = "stdin" ] && read -p "Enter the method you wish to use: " METHOD
 [ -z ${METHOD} ] && METHOD=$1
 
