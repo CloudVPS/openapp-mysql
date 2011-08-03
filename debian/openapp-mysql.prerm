@@ -20,7 +20,7 @@ set -e
 case "$1" in
     remove|deconfigure)
 		echo "Removing symlinks for openapp-backup placed by the installscript"
-		SCRIPTS="home openpanel mysql openapp-mysql"
+		SCRIPTS="home openpanel mysql"
 		for SCRIPT in ${SCRIPTS}; do
 			openapp-backup-dismod ${SCRIPT}
 		done
