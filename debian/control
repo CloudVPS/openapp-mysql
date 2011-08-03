@@ -8,9 +8,8 @@ Homepage: http://www.openpanel.com/openapp/
 
 Package: openapp-mysql
 Architecture: any
-Pre-Depends: openapp-backup, openapp-tuning
+Pre-Depends: openapp-backup, openapp-tuning, lighttpd, mysql-server
 Suggests: openapp-xtrabackup
-Pre-Depends: lighttpd, mysql-server
 Depends: rsync, openapp-mysql-installer, openpanel-openapp-mod-mysql, openpanel-openapp-mod-smtp, openpanel-openapp-mod-backup
 Provides: openapp-app
 Conflicts: openapp-app
