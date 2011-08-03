@@ -26,6 +26,17 @@ case "$1" in
 				openapp-backup-enmod ${SCRIPT}
 			done
 
+			echo "Enabling lighttpd configuration"
+			lighttpd-enable-mod auth fastcgi
+
+			echo "Run openapp-mysql-passwd"
+			if [ -r /etc/openapp-phpmyadmin/httpd.passwd ]; then
+				PASSWORD=$(cat /etc/openapp-phpmyadmin/httpd.passwd | cut -f2 -d:)
+				echo ${PASSWORD} | openapp-mysql-passwd stdin
+			else
+				openapp-mysql-passwd
+			fi
+
 			echo "Identify ourselve to openapp-tuning and run it"
 			mkdir -p /etc/openapp-tuning/
 			echo "mysql" > /etc/openapp-tuning/identity
