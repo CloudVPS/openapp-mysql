@@ -3,11 +3,11 @@ PREFIX=${CURDIR}/debian/openapp-mysql
 install:
 # bin
 	mkdir -p $(PREFIX)/usr/bin
-	cp openapp-mysql-passwd $(PREFIX)/usr/bin
+	ln -s /usr/bin/openapp-phpmyadmin-passwd $(PREFIX)/usr/bin/openapp-mysql-passwd
 
 #man
 	mkdir -p $(PREFIX)/usr/share/man/man1
-	cp debian/openapp-mysql-passwd.1 $(PREFIX)/usr/share/man/man1
+	ln -s /usr/share/man/man1/openapp-phpmyadmin-passwd.1.gz $(PREFIX)/usr/share/man/man1/openapp-mysql-passwd.1.gz
 
 uninstall:
 # bin
