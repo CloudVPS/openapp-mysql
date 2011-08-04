@@ -11,7 +11,7 @@ Architecture: any
 Pre-Depends: openapp-backup, openapp-tuning, lighttpd, mysql-server
 Suggests: openapp-xtrabackup
 Depends: rsync, openapp-phpmyadmin-installer, openpanel-openapp-mod-mysql, openpanel-openapp-mod-smtp, openpanel-openapp-mod-backup, php5-cgi, php5-mysql
-Provides: openapp-app
+Provides: openapp-app, openapp-phpmyadmin-user
 Conflicts: openapp-app
 Description: This will install your MySQL OpenApp Appliance!
  Please note that you might need xtrabackup too. See
