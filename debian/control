@@ -7,7 +7,7 @@ Standards-Version: 3.9.1
 Homepage: http://www.openpanel.com/openapp/
 
 Package: openapp-mysql
-Architecture: any
+Architecture: all
 Pre-Depends: openapp-backup, openapp-tuning, lighttpd, mysql-server
 Suggests: openapp-xtrabackup
 Depends: rsync, openapp-phpmyadmin-installer, openpanel-openapp-mod-mysql, openpanel-openapp-mod-smtp, openpanel-openapp-mod-backup, php5-cgi, php5-mysql
