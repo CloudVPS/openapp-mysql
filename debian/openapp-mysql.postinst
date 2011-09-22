@@ -29,12 +29,12 @@ case "$1" in
 			echo "Enabling lighttpd configuration"
 			lighttpd-enable-mod auth fastcgi
 
-			echo "Run openapp-mysql-passwd"
+			echo "Run openapp-phpmyadmin-passwd"
 			if [ -r /etc/openapp-phpmyadmin/httpd.passwd ]; then
 				PASSWORD=$(cat /etc/openapp-phpmyadmin/httpd.passwd | cut -f2 -d:)
-				echo ${PASSWORD} | openapp-mysql-passwd stdin
+				echo ${PASSWORD} | openapp-phpmyadmin-passwd stdin
 			else
-				openapp-mysql-passwd
+				openapp-phpmyadmin-passwd
 			fi
 
 			echo "Identify ourself to openapp-tuning and run it"
